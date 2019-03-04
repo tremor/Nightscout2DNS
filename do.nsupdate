@@ -1,0 +1,15 @@
+#!/bin/bash
+record=${1}
+zone=${2}
+shift
+shift
+txt=${*}
+ttl=60
+(
+ echo "server 127.0.0.1"
+ echo "zone ${zone}"
+
+ echo "update delete ${record} TXT"
+ echo "update add ${record} ${ttl} TXT ${txt}"
+ echo "send"
+) | /usr/bin/nsupdate
